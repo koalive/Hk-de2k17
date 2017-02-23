@@ -19,3 +19,6 @@ from docopt import docopt
 
 ##################################### Main ####################################
 arguments = docopt(__doc__)
+
+input_file = open(arguments["<file>"], "r").read().splitlines()
+V, E, R, C, X = [int(i) for i in input_file[0].split()]
