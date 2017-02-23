@@ -80,12 +80,21 @@ for i in reversed(range(R)):
 	req = Rsort[i,0]
 	e = Rsort[i,1]
 	c = connections[e]
+	available = False
 	for j in range(K[e]):
-#	for j in range(10):
 		cac = c[j,0]
 		# requested video req
 		# cache index cac
-		if req not in output[cac]:
+		if req in output[cac]:
+			available = True
+			break
+	if not available:
+		for j in range(K[e]):
+	#	for j in range(10):
+			cac = c[j,0]
+			# requested video req
+			# cache index cac
+			#if req not in output[cac]:
 			if S[req] <= X[cac]:
 				output[cac].append(req)
 				X[cac] -= S[req]
