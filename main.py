@@ -63,21 +63,33 @@ for i in range(R):
 	assert Rn >= 0 and Rn <= 10000
 	Rmat[i] = [Rv, Re, Rn]
 
+Rsort = Rmat[Rmat[:,2].argsort()]
+
 output = [list([]) for i in range(C)]
 
+"""
 #print(Rmat[0])
 # Video 0 for endpoint 85, 1614 times
 req = 0
 #print(connections[85]) 
 # Fastest connection to node 44
-cac = 44
+cac = 44"""
 
-# requested video req
-# cache index cac
-if S[req] <= X[cac]:
-	output[cac].append(req)
-	X[cac] -= S[req]
-	#break
+for i in reversed(range(R)):
+#for i in reversed(range(R-10, R)):
+	req = Rsort[i,0]
+	e = Rsort[i,1]
+	c = connections[e]
+	for j in range(K[e]):
+#	for j in range(10):
+		cac = c[j,0]
+		# requested video req
+		# cache index cac
+		if req not in output[cac]:
+			if S[req] <= X[cac]:
+				output[cac].append(req)
+				X[cac] -= S[req]
+				break
 
 res = ""
 nb_cache_used = 0
