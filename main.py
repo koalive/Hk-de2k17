@@ -29,6 +29,8 @@ input_file = open(arguments["<file>"], "r").read().splitlines()
 # C = nb of cache servers
 # X = capacity of each server in Mb
 V, E, R, C, X = [int(i) for i in input_file[0].split()]
+# X becomes the storage in each cache server
+X = [X]*C
 
 # Size of each video in Mb
 S = np.array([int(i) for i in input_file[1].split()])
@@ -60,3 +62,29 @@ for i in range(R):
 	assert Re >= 0 and Re < E
 	assert Rn >= 0 and Rn <= 10000
 	Rmat[i] = [Rv, Re, Rn]
+
+
+output = [list([]) for i in range(C)]
+
+#print(Rmat[0])
+# Video 0 for endpoint 85, 1614 times
+req = 0
+#print(connections[85]) 
+# Fastest connection to node 44
+cac = 44
+
+# requested video req
+# cache index cac
+if S[req] <= X[cac]:
+	output[cac].append(req)
+	X[cac] -= S[req]
+	#break
+
+res = ""
+nb_cache_used = 0
+for i in range(C):
+	if output[i]:
+		res += str(i)+" "+" ".join([str(j) for j in output[i]])+"\n"
+		nb_cache_used += 1
+print(nb_cache_used)
+print(res[:-1])
