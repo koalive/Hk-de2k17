@@ -40,9 +40,21 @@ K = np.empty(E, dtype='int16')
 connectionsDicts = [{} for i in range(E)]
 for i in range(E):
 	LD[i], K[i] = [int(i) for i in input_file[parser].split()]
-	assert LD[i] <= 4000 and LD[i] >= 2
 	parser += 1
+	assert LD[i] <= 4000 and LD[i] >= 2
 	for j in range(K[i]):
 		c, LC = [int(i) for i in input_file[parser].split()]
+		parser += 1
+		assert c >= 0 and c <= C
+		assert LC >= 1 and LC <= 500
 		connectionsDicts[i][c] = LC
-		parser += 1*
+
+# Request description
+Rmat = np.empty([R,3], dtype='int16')
+for i in range(R):
+	Rv, Re, Rn = [int(i) for i in input_file[parser].split()]
+	parser += 1
+	assert Rv >= 0 and Rv < V
+	assert Re >= 0 and Re < E
+	assert Rn >= 0 and Rn <= 10000
+	Rmat[i] = [Rv, Re, Rn]
