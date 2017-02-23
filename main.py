@@ -19,3 +19,6 @@ from docopt import docopt
 
 ##################################### Main ####################################
 arguments = docopt(__doc__)
+
+
+# Bardur testing
