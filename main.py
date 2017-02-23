@@ -37,17 +37,19 @@ S = np.array([int(i) for i in input_file[1].split()])
 parser = 2
 LD = np.empty(E, dtype='int16')
 K = np.empty(E, dtype='int16')
-connectionsDicts = [{} for i in range(E)]
+connections = [] # For each endpoint, each connections, formatted as [cache ID, latency]
 for i in range(E):
 	LD[i], K[i] = [int(i) for i in input_file[parser].split()]
 	parser += 1
 	assert LD[i] <= 4000 and LD[i] >= 2
+	latmat = np.empty([K[i], 2], dtype='int16')
 	for j in range(K[i]):
 		c, LC = [int(i) for i in input_file[parser].split()]
 		parser += 1
 		assert c >= 0 and c <= C
 		assert LC >= 1 and LC <= 500
-		connectionsDicts[i][c] = LC
+		latmat[j] = [c, LC]
+	connections.append(latmat)
 
 # Request description
 Rmat = np.empty([R,3], dtype='int16')
