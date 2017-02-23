@@ -53,7 +53,8 @@ for i in range(E):
 		assert c >= 0 and c <= C
 		assert LC >= 1 and LC <= 500
 		latmat[j] = [c, LC]
-	connections.append(latmat)
+	latsort = latmat[latmat[:,1].argsort()]
+	connections.append(latsort)
 
 # Request description
 Rmat = np.empty([R,3], dtype='int16')
@@ -64,4 +65,4 @@ for i in range(R):
 	assert Re >= 0 and Re < E
 	assert Rn >= 0 and Rn <= 10000
 	Rmat[i] = [Rv, Re, Rn]
->>>>>>> origin/master
+
